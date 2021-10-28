@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass=EmployeeRepository::class)
@@ -26,6 +28,16 @@ class Employee
      * @ORM\Column(type="string", length=255)
      */
     private $lastName;
+
+    /**
+     * @ORM\Column(type="Date")
+     */
+    private $startDate;
+
+    /**
+     * @ORM\Column(type="Date")
+     */
+    private $endDate;
 
     /**
      * @ORM\Column(type="integer")
@@ -60,7 +72,26 @@ class Employee
 
         return $this;
     }
+    public function setStartDate(Date $startDate): self
+    {
+        $this->startDate = $startDate;
+        return $this;
+    }
+    public function getStartDate(): ?Date
+    {
+        return $this->startDate;
+    }
 
+    public function setEndDate(Date $endDate): self
+    {
+        $this->endDate = $endDate;
+        return $this;
+    }
+
+    public function getEndDate(): ?Date
+    {
+        return $this->endDate;
+    }
     public function getEmpID(): ?int
     {
         return $this->empID;

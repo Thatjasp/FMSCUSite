@@ -31,5 +31,26 @@ class EmployeeController extends AbstractController
 
         return new Response('Saved new employee with id '.$employee->getId());
     }
+    public function showAll() {
+        // Tells Doctorine to find 
+        $employees = $this->getDoctrine()
+            -> getRepository(Employee::class)->findAll();
+        
+        if (!$employees) {
+                throw $this->createNotFoundException("No Employee found.");
+        }
+        $response = "";
+        foreach($employees as &$employee) {
+            $line = "<tr>"
+                    ."<td>".$employee->getFirstName()."</td>"
+                    ."<td>".$employee->getLastName()."</td>"
+                    ."<td>".$employee->getStartDate()."</td>"
+                    ."<td>".$employee->getEndDate()."</td>"
+                    ."</tr>";
+        }
+
+            // Subject to change depending on however we need to return it
+        return new Response($response);
+    }
 
 }
